@@ -2,27 +2,23 @@ import chalk from "chalk";
 import cors from "cors";
 import express, { json } from "express";
 import prisma from "./configs/prisma";
+import { productRouter } from "./routes/product.route";
 
 const app = express();
 
 app
   .use(cors())
   .use(json())
-  .get("/status", (req, res) => res.send("Oh. hey there, I'm OK!"))
-  .get("/test", async (req, res) => {
+  .get("/api/status", (req, res) => res.send("Oh. hey there, I'm OK!"))
+  .get("/api/test", async (req, res) => {
     try {
-      await prisma.product.create({
-        data: {
-          name: "Banana",
-          price: 13.0,
-        },
-      });
-
-      res.sendStatus(201);
+      await prisma.$connect();
+      res.send("DB is up and running");
     } catch (error) {
-      console.log(error);
+      res.sendStatus(500);
     }
-  });
+  })
+  .use("/api/product", productRouter);
 
 const port = process.env.PORT || 5001;
 app.listen(port, () =>
