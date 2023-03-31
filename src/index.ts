@@ -12,7 +12,13 @@ app
   .get("/api/status", (req, res) => res.send("Oh. hey there, I'm OK!"))
   .get("/api/test", async (req, res) => {
     try {
-      await prisma.$connect();
+      await prisma.product.create({
+        data: {
+          name: "Queijo mussarela Kg",
+          price: 45.9,
+          category: "Dairy",
+        },
+      });
       res.send("DB is up and running");
     } catch (error) {
       res.sendStatus(500);
@@ -20,7 +26,7 @@ app
   })
   .use("/api/product", productRouter);
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT;
 app.listen(port, () =>
   console.log(chalk.bold.blue(`Server running in port: ${port}`))
 );
