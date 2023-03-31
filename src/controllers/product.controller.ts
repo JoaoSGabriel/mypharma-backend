@@ -35,3 +35,18 @@ export async function getProductCategory(req: Request, res: Response) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }
+
+export async function getProductByName(req: Request, res: Response) {
+  const { name } = req.query;
+
+  if (typeof name !== "string") {
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+
+  try {
+    const products = await productService.searchProductByName(name);
+    res.status(httpStatus.OK).send(products);
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}

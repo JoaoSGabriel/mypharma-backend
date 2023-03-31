@@ -44,11 +44,22 @@ async function filterByAlphabeticCategorie(
   });
 }
 
+async function searchProductByName(name: string) {
+  return await prisma.product.findMany({
+    where: {
+      name: {
+        contains: name,
+      },
+    },
+  });
+}
+
 const productRepository = {
   showProducts,
   showAlphabeticProducts,
   filterByCategorie,
   filterByAlphabeticCategorie,
+  searchProductByName,
 };
 
 export default productRepository;

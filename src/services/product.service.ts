@@ -1,6 +1,6 @@
 import productRepository from "../repositories/product.repository";
 
-async function showProducts(filter?: string) {
+function showProducts(filter?: string) {
   if (filter === "name") {
     return productRepository.showAlphabeticProducts();
   }
@@ -8,7 +8,7 @@ async function showProducts(filter?: string) {
   return productRepository.showProducts(filter);
 }
 
-async function filterProducts(category: string, filter?: string) {
+function filterProducts(category: string, filter?: string) {
   if (filter === "name") {
     return productRepository.filterByAlphabeticCategorie(category);
   }
@@ -16,9 +16,14 @@ async function filterProducts(category: string, filter?: string) {
   return productRepository.filterByCategorie(category, filter);
 }
 
+function searchProductByName(name: string) {
+  return productRepository.searchProductByName(name);
+}
+
 const productService = {
   showProducts,
   filterProducts,
+  searchProductByName,
 };
 
 export default productService;
