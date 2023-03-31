@@ -5,7 +5,7 @@ import productService from "../services/product.service";
 export async function getAllProducts(req: Request, res: Response) {
   const { filter } = req.query;
 
-  if (filter && filter !== "asc" && filter !== "desc") {
+  if (filter && filter !== "asc" && filter !== "desc" && filter !== "name") {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
@@ -18,14 +18,18 @@ export async function getAllProducts(req: Request, res: Response) {
 }
 
 export async function getProductCategory(req: Request, res: Response) {
-  const { category } = req.query;
+  const { category, filter } = req.query;
 
   if (typeof category !== "string") {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
+  if (filter && filter !== "asc" && filter !== "desc" && filter !== "name") {
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+
   try {
-    const products = await productService.filterProducts(category);
+    const products = await productService.filterProducts(category, filter);
     res.status(httpStatus.OK).send(products);
   } catch (error) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);

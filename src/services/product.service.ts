@@ -1,15 +1,19 @@
-import productRepository, { filter } from "../repositories/product.repository";
+import productRepository from "../repositories/product.repository";
 
-async function showProducts(filter?: filter) {
-  if (filter) {
-    return await productRepository.showProducts(filter);
-  } else {
-    return await productRepository.showProducts();
+async function showProducts(filter?: string) {
+  if (filter === "name") {
+    return productRepository.showAlphabeticProducts();
   }
+
+  return productRepository.showProducts(filter);
 }
 
-async function filterProducts(category: string) {
-  return productRepository.filterByCategorie(category);
+async function filterProducts(category: string, filter?: string) {
+  if (filter === "name") {
+    return productRepository.filterByAlphabeticCategorie(category);
+  }
+
+  return productRepository.filterByCategorie(category, filter);
 }
 
 const productService = {

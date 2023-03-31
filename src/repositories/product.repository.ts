@@ -1,31 +1,54 @@
 import prisma from "../configs/prisma";
-import { Prisma, Product } from "@prisma/client";
+import { Product } from "@prisma/client";
 
-async function showProducts(filter?: filter): Promise<Product[]> {
+async function showProducts(price?: string): Promise<Product[]> {
   return await prisma.product.findMany({
     orderBy: {
-      price: filter,
+      price: price,
+    },
+  });
+}
+
+async function showAlphabeticProducts(): Promise<Product[]> {
+  return await prisma.product.findMany({
+    orderBy: {
+      name: "asc",
     },
   });
 }
 
 async function filterByCategorie(
   category: string,
-  obj?: Prisma.ProductOrderByWithRelationInput
+  price?: string
 ): Promise<Product[]> {
   return await prisma.product.findMany({
     where: {
       category,
     },
-    orderBy: obj,
+    orderBy: {
+      price: price,
+    },
+  });
+}
+
+async function filterByAlphabeticCategorie(
+  category: string
+): Promise<Product[]> {
+  return await prisma.product.findMany({
+    where: {
+      category,
+    },
+    orderBy: {
+      name: "asc",
+    },
   });
 }
 
 const productRepository = {
   showProducts,
+  showAlphabeticProducts,
   filterByCategorie,
+  filterByAlphabeticCategorie,
 };
-
-export type filter = Prisma.SortOrder;
 
 export default productRepository;
