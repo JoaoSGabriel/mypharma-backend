@@ -1,9 +1,11 @@
-import productRepository from "../repositories/product.repository";
+import productRepository, { filter } from "../repositories/product.repository";
 
-async function showProducts() {
-  const products = await productRepository.showProducts();
-
-  return products;
+async function showProducts(filter?: filter) {
+  if (filter) {
+    return await productRepository.showProducts(filter);
+  } else {
+    return await productRepository.showProducts();
+  }
 }
 
 async function filterProducts(category: string) {
