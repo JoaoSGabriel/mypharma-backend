@@ -12,14 +12,8 @@ app
   .get("/api/status", (req, res) => res.send("Oh. hey there, I'm OK!"))
   .get("/api/test", async (req, res) => {
     try {
-      await prisma.product.create({
-        data: {
-          name: "Queijo mussarela Kg",
-          price: 45.9,
-          category: "Dairy",
-        },
-      });
-      res.send("DB is up and running");
+      await prisma.$connect();
+      res.sendStatus(200);
     } catch (error) {
       res.sendStatus(500);
     }
