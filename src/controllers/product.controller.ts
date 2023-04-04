@@ -6,7 +6,7 @@ import productService from "../services/product.service";
 export async function getAllProducts(req: Request, res: Response) {
   const { filter } = req.query;
 
-  if (filter && filter !== "asc" && filter !== "desc" && filter !== "name") {
+  if (typeof filter !== "string") {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
@@ -26,7 +26,7 @@ export async function getProductCategory(req: Request, res: Response) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
-  if (filter && filter !== "asc" && filter !== "desc" && filter !== "name") {
+  if (typeof filter !== "string") {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
