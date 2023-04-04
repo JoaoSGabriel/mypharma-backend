@@ -1,19 +1,29 @@
-import productRepository from "../repositories/product.repository";
+import productRepository, {
+  Categories,
+} from "../repositories/product.repository";
 
 function showProducts(filter?: string) {
   if (filter === "name") {
     return productRepository.showAlphabeticProducts();
   }
 
-  return productRepository.showProducts(filter);
+  if (filter === "asc" || filter === "desc") {
+    return productRepository.showProducts(filter);
+  }
+
+  return productRepository.showProducts();
 }
 
-function filterProducts(category: string, filter?: string) {
+function filterProducts(category: Categories, filter?: string) {
   if (filter === "name") {
     return productRepository.filterByAlphabeticCategorie(category);
   }
 
-  return productRepository.filterByCategorie(category, filter);
+  if (filter === "asc" || filter === "desc") {
+    return productRepository.filterByCategorie(category, filter);
+  }
+
+  return productRepository.filterByCategorie(category);
 }
 
 function searchProductByName(name: string) {

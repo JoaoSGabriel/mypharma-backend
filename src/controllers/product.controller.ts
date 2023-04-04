@@ -1,3 +1,4 @@
+import { Category } from "@prisma/client";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import productService from "../services/product.service";
@@ -19,8 +20,9 @@ export async function getAllProducts(req: Request, res: Response) {
 
 export async function getProductCategory(req: Request, res: Response) {
   const { category, filter } = req.query;
+  console.log(category);
 
-  if (typeof category !== "string") {
+  if (category !== Category) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 

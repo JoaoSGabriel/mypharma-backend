@@ -1,7 +1,7 @@
 import prisma from "../configs/prisma";
-import { Product } from "@prisma/client";
+import { Category, Prisma, Product } from "@prisma/client";
 
-async function showProducts(price?: string): Promise<Product[]> {
+async function showProducts(price?: Prisma.SortOrder): Promise<Product[]> {
   return await prisma.product.findMany({
     orderBy: {
       price: price,
@@ -18,8 +18,8 @@ async function showAlphabeticProducts(): Promise<Product[]> {
 }
 
 async function filterByCategorie(
-  category: string,
-  price?: string
+  category: Categories,
+  price?: Prisma.SortOrder
 ): Promise<Product[]> {
   return await prisma.product.findMany({
     where: {
@@ -32,7 +32,7 @@ async function filterByCategorie(
 }
 
 async function filterByAlphabeticCategorie(
-  category: string
+  category: Categories
 ): Promise<Product[]> {
   return await prisma.product.findMany({
     where: {
@@ -53,6 +53,8 @@ async function searchProductByName(name: string) {
     },
   });
 }
+
+export type Categories = Prisma.EnumCategoryFilter;
 
 const productRepository = {
   showProducts,
