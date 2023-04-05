@@ -21,11 +21,18 @@ export async function getAllProducts(req: Request, res: Response) {
 export async function getProductCategory(req: Request, res: Response) {
   const { category, filter } = req.query;
 
-  if (category !== Category || typeof category !== "string") {
+  if (typeof filter !== "string" || typeof category !== "string") {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
-  if (typeof filter !== "string") {
+  if (
+    category !== Category.Bakery &&
+    category !== Category.Beverage &&
+    category !== Category.Dairy &&
+    category !== Category.Deli &&
+    category !== Category.Meat &&
+    category !== Category.PreparedFoods
+  ) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 
