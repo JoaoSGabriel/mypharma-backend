@@ -58,3 +58,18 @@ export async function getProductByName(req: Request, res: Response) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }
+
+export async function getProductById(req: Request, res: Response) {
+  const { id } = req.query;
+
+  if (typeof id !== "string") {
+    return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+
+  try {
+    const product = await productService.searchProductById(id);
+    res.status(httpStatus.OK).send(product);
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}

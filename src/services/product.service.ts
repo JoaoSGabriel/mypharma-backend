@@ -29,10 +29,15 @@ function searchProductByName(name: string) {
   return productRepository.searchProductByName(name);
 }
 
+function searchProductById(id: string) {
+  return productRepository.findProductById(id);
+}
+
 const productService = {
   showProducts,
   filterProducts,
   searchProductByName,
+  searchProductById,
 };
 
 export default productService;

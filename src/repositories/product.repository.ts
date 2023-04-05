@@ -54,12 +54,21 @@ async function searchProductByName(name: string) {
   });
 }
 
+async function findProductById(id: string) {
+  return await prisma.product.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
 const productRepository = {
   showProducts,
   showAlphabeticProducts,
   filterByCategorie,
   filterByAlphabeticCategorie,
   searchProductByName,
+  findProductById,
 };
 
 export default productRepository;
