@@ -1,6 +1,5 @@
-import productRepository, {
-  Categories,
-} from "../repositories/product.repository";
+import { Category } from "@prisma/client";
+import productRepository from "../repositories/product.repository";
 
 function showProducts(filter?: string) {
   if (filter === "name") {
@@ -14,7 +13,7 @@ function showProducts(filter?: string) {
   return productRepository.showProducts();
 }
 
-function filterProducts(category: Categories, filter?: string) {
+function filterProducts(category: Category, filter?: string) {
   if (filter === "name") {
     return productRepository.filterByAlphabeticCategorie(category);
   }

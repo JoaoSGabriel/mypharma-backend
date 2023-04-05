@@ -22,7 +22,7 @@ export async function getProductCategory(req: Request, res: Response) {
   const { category, filter } = req.query;
   console.log(category);
 
-  if (category !== Category) {
+  if (category !== Category || typeof category !== "string") {
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 

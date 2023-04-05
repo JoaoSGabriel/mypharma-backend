@@ -22,6 +22,14 @@ export const products = [
   },
 ];
 
+function compare(a: mockProduct, b: mockProduct) {
+  if (a.price > b.price) return -1;
+  if (a.price < b.price) return 1;
+  return 0;
+}
+
+export const ascOrderProducts = products.sort(compare);
+
 function alphabeticOrder(a: mockProduct, b: mockProduct) {
   if (a.name < b.name) {
     return -1;

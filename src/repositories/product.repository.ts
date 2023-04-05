@@ -18,7 +18,7 @@ async function showAlphabeticProducts(): Promise<Product[]> {
 }
 
 async function filterByCategorie(
-  category: Categories,
+  category: Category,
   price?: Prisma.SortOrder
 ): Promise<Product[]> {
   return await prisma.product.findMany({
@@ -32,7 +32,7 @@ async function filterByCategorie(
 }
 
 async function filterByAlphabeticCategorie(
-  category: Categories
+  category: Category
 ): Promise<Product[]> {
   return await prisma.product.findMany({
     where: {
@@ -53,8 +53,6 @@ async function searchProductByName(name: string) {
     },
   });
 }
-
-export type Categories = Prisma.EnumCategoryFilter;
 
 const productRepository = {
   showProducts,
